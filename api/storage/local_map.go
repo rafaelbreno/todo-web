@@ -3,6 +3,7 @@ package storage
 import (
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/rafaelbreno/todo-web/api/models"
 )
 
@@ -25,9 +26,11 @@ func NewLocalMap() *LocalMap {
 func (l *LocalMap) Create(v any) error {
 	switch m := v.(type) {
 	case *models.Item:
+		m.ID = uuid.New()
 		l.items[m.ID.String()] = *m
 		return nil
 	case *models.List:
+		m.ID = uuid.New()
 		l.lists[m.ID.String()] = *m
 		return nil
 	default:
