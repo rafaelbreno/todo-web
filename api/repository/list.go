@@ -12,7 +12,7 @@ type ListRepo struct {
 }
 
 // NewListRepo returns an instance of List Repository.
-func NewListRepo(st storage.Storage) *ListRepo {
+func NewListRepo(st storage.Storage) Repository[models.List] {
 	return &ListRepo{
 		st: st,
 	}
