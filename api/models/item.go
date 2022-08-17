@@ -5,7 +5,8 @@ import (
 	"github.com/rafaelbreno/todo-web/api/enum"
 )
 
-// Item is a item from a List.
+// Item - A data model which represents
+// 	each item of a list.
 type Item struct {
 	ID     uuid.UUID       `json:"id"`
 	ListID uuid.UUID       `json:"list_id"`
