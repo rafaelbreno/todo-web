@@ -22,5 +22,5 @@ func NewHTTP() *HTTP {
 }
 
 func (h *HTTP) setHandlers() {
-	h.App.Get("/health", handler.HealthCheck())
+	h.App.Get(handler.HealthCheck())
 }
