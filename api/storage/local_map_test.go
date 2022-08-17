@@ -43,7 +43,7 @@ func TestLocalMapStorage(t *testing.T) {
 		t.Run("List", func(t *testing.T) {
 			require := require.New(t)
 
-			actual := l.Create(models.List{
+			actual := l.Create(&models.List{
 				ID: uuid.New(),
 			})
 
@@ -67,7 +67,7 @@ func TestLocalMapStorage(t *testing.T) {
 		t.Run("Unexistent List", func(t *testing.T) {
 			require := require.New(t)
 
-			actual := l.Delete(models.List{
+			actual := l.Delete(&models.List{
 				ID: uuid.New(),
 			})
 
@@ -81,9 +81,9 @@ func TestLocalMapStorage(t *testing.T) {
 				ID: uuid.New(),
 			}
 
-			require.Nil(l.Create(m))
+			require.Nil(l.Create(&m))
 
-			actual := l.Delete(m)
+			actual := l.Delete(&m)
 
 			if actual != nil {
 				t.Fatal(actual)
@@ -109,7 +109,7 @@ func TestLocalMapStorage(t *testing.T) {
 		t.Run("Unexistent List", func(t *testing.T) {
 			require := require.New(t)
 
-			actual := l.Read(models.List{
+			actual := l.Read(&models.List{
 				ID: uuid.New(),
 			})
 
@@ -124,7 +124,7 @@ func TestLocalMapStorage(t *testing.T) {
 				Name: "foo",
 			}
 
-			require.Nil(l.Create(m1))
+			require.Nil(l.Create(&m1))
 
 			m2 := models.List{
 				ID: m1.ID,
@@ -157,7 +157,7 @@ func TestLocalMapStorage(t *testing.T) {
 				Name: "foo",
 			}
 
-			require.Nil(l.Create(m1))
+			require.Nil(l.Create(&m1))
 
 			listArr := []models.List{}
 
@@ -174,7 +174,7 @@ func TestLocalMapStorage(t *testing.T) {
 				Name: "foo",
 			}
 
-			require.Nil(l.Create(m1))
+			require.Nil(l.Create(&m1))
 
 			listArr := []models.List{}
 
@@ -214,9 +214,9 @@ func TestLocalMapStorage(t *testing.T) {
 				ID: uuid.New(),
 			}
 
-			require.Nil(l.Create(m))
+			require.Nil(l.Create(&m))
 
-			actual := l.Update(m)
+			actual := l.Update(&m)
 
 			require.Nil(actual)
 		})

@@ -24,11 +24,11 @@ func NewLocalMap() *LocalMap {
 // Create inserts a model instance to the local DB.
 func (l *LocalMap) Create(v any) error {
 	switch m := v.(type) {
-	case models.Item:
-		l.items[m.ID.String()] = m
+	case *models.Item:
+		l.items[m.ID.String()] = *m
 		return nil
-	case models.List:
-		l.lists[m.ID.String()] = m
+	case *models.List:
+		l.lists[m.ID.String()] = *m
 		return nil
 	default:
 		return fmt.Errorf("type '%T' not supported", v)
@@ -38,13 +38,13 @@ func (l *LocalMap) Create(v any) error {
 // Delete deletes an existent model instance in the local DB.
 func (l *LocalMap) Delete(v any) error {
 	switch m := v.(type) {
-	case models.Item:
+	case *models.Item:
 		if _, ok := l.items[m.ID.String()]; !ok {
 			return fmt.Errorf("item with id '%s' does not exists", m.ID.String())
 		}
 		delete(l.items, m.ID.String())
 		return nil
-	case models.List:
+	case *models.List:
 		if _, ok := l.lists[m.ID.String()]; !ok {
 			return fmt.Errorf("list with id '%s' does not exists", m.ID.String())
 		}
@@ -98,17 +98,17 @@ func (l *LocalMap) ReadAll(v any) error {
 // Update updates an existent model instance in the local DB.
 func (l *LocalMap) Update(v any) error {
 	switch m := v.(type) {
-	case models.Item:
+	case *models.Item:
 		if _, ok := l.items[m.ID.String()]; !ok {
 			return fmt.Errorf("item with id '%s' does not exists", m.ID.String())
 		}
-		l.items[m.ID.String()] = m
+		l.items[m.ID.String()] = *m
 		return nil
-	case models.List:
+	case *models.List:
 		if _, ok := l.lists[m.ID.String()]; !ok {
 			return fmt.Errorf("list with id '%s' does not exists", m.ID.String())
 		}
-		l.lists[m.ID.String()] = m
+		l.lists[m.ID.String()] = *m
 		return nil
 	default:
 		return fmt.Errorf("type '%T' not supported", v)
