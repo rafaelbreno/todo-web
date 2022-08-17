@@ -4,23 +4,23 @@ package enum
 type ItemStatus int8
 
 const (
-	// NotStarted is when the item still haven't been started yet.
-	NotStarted ItemStatus = iota
-	// InProgress is when the item still in InProgress
-	InProgress
-	// Completed is when the item was completed.
-	Completed
-	// Canceled is when the item was canceled.
-	Canceled
+	// ItemNotStarted is when the item still haven't been started yet.
+	ItemNotStarted ItemStatus = iota
+	// ItemInProgress is when the item still in InProgress
+	ItemInProgress
+	// ItemCompleted is when the item was completed.
+	ItemCompleted
+	// ItemCanceled is when the item was canceled.
+	ItemCanceled
 )
 
 var (
 	// ItemStatusMap is a map to get the string value
 	// of an ItemStatus.
 	ItemStatusMap = map[ItemStatus]string{
-		NotStarted: "not_started",
-		InProgress: "in_progress",
-		Completed:  "completed",
-		Canceled:   "canceled",
+		ItemNotStarted: "not_started",
+		ItemInProgress: "in_progress",
+		ItemCompleted:  "completed",
+		ItemCanceled:   "canceled",
 	}
 )
