@@ -92,6 +92,10 @@ func (l *LocalMap) ReadAll(v any) error {
 			return nil
 		}
 		listID := (*m)[0].ListID
+		if _, ok := l.lists[listID.String()]; !ok {
+			return fmt.Errorf("list with id '%s' does not exists", listID.String())
+		}
+		*m = []models.Item{}
 		for _, v := range l.items {
 			if v.ListID == listID {
 				*m = append(*m, v)

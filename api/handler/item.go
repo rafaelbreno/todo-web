@@ -126,7 +126,7 @@ func (l *ItemHandler) ReadAll() (string, func(*fiber.Ctx) error) {
 		b := map[string]string{}
 
 		if len(c.Body()) > 0 {
-			if err := c.BodyParser(b); err != nil {
+			if err := c.BodyParser(&b); err != nil {
 				return c.
 					Status(fiber.StatusBadRequest).
 					JSON(fiber.Map{
