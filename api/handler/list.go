@@ -36,7 +36,7 @@ func (l *ListHandler) Create() (string, func(*fiber.Ctx) error) {
 		m := models.List{}
 		if err := c.BodyParser(&m); err != nil {
 			return c.
-				Status(fiber.ErrInternalServerError.Code).
+				Status(fiber.StatusInternalServerError).
 				JSON(fiber.Map{
 					"error": err.Error(),
 				})
@@ -47,7 +47,7 @@ func (l *ListHandler) Create() (string, func(*fiber.Ctx) error) {
 
 		if err := l.repo.Create(&m); err != nil {
 			return c.
-				Status(fiber.ErrBadRequest.Code).
+				Status(fiber.StatusBadRequest).
 				JSON(fiber.Map{
 					"error": err.Error(),
 				})
@@ -67,7 +67,7 @@ func (l *ListHandler) Delete() (string, func(*fiber.Ctx) error) {
 		id, err := uuid.Parse(c.Params("id"))
 		if err != nil {
 			return c.
-				Status(fiber.ErrBadRequest.Code).
+				Status(fiber.StatusBadRequest).
 				JSON(fiber.Map{
 					"error": err.Error(),
 				})
@@ -79,7 +79,7 @@ func (l *ListHandler) Delete() (string, func(*fiber.Ctx) error) {
 
 		if err := l.repo.Delete(&m); err != nil {
 			return c.
-				Status(fiber.ErrBadRequest.Code).
+				Status(fiber.StatusBadRequest).
 				JSON(fiber.Map{
 					"error": err.Error(),
 				})
@@ -99,7 +99,7 @@ func (l *ListHandler) Read() (string, func(*fiber.Ctx) error) {
 		id, err := uuid.Parse(c.Params("id"))
 		if err != nil {
 			return c.
-				Status(fiber.ErrBadRequest.Code).
+				Status(fiber.StatusBadRequest).
 				JSON(fiber.Map{
 					"error": err.Error(),
 				})
@@ -111,7 +111,7 @@ func (l *ListHandler) Read() (string, func(*fiber.Ctx) error) {
 
 		if err := l.repo.Read(&m); err != nil {
 			return c.
-				Status(fiber.ErrBadRequest.Code).
+				Status(fiber.StatusBadRequest).
 				JSON(fiber.Map{
 					"error": err.Error(),
 				})
@@ -132,7 +132,7 @@ func (l *ListHandler) ReadAll() (string, func(*fiber.Ctx) error) {
 
 		if err := l.repo.ReadAll(&m); err != nil {
 			return c.
-				Status(fiber.ErrBadRequest.Code).
+				Status(fiber.StatusBadRequest).
 				JSON(fiber.Map{
 					"error": err.Error(),
 				})
@@ -152,7 +152,7 @@ func (l *ListHandler) Update() (string, func(*fiber.Ctx) error) {
 		id, err := uuid.Parse(c.Params("id"))
 		if err != nil {
 			return c.
-				Status(fiber.ErrBadRequest.Code).
+				Status(fiber.StatusBadRequest).
 				JSON(fiber.Map{
 					"error": err.Error(),
 				})
@@ -162,7 +162,7 @@ func (l *ListHandler) Update() (string, func(*fiber.Ctx) error) {
 
 		if err := c.BodyParser(&m); err != nil {
 			return c.
-				Status(fiber.ErrBadRequest.Code).
+				Status(fiber.StatusBadRequest).
 				JSON(fiber.Map{
 					"error": err.Error(),
 				})
@@ -172,7 +172,7 @@ func (l *ListHandler) Update() (string, func(*fiber.Ctx) error) {
 
 		if err := l.repo.Update(&m); err != nil {
 			return c.
-				Status(fiber.ErrBadRequest.Code).
+				Status(fiber.StatusBadRequest).
 				JSON(fiber.Map{
 					"error": err.Error(),
 				})
