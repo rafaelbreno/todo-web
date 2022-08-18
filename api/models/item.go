@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/google/uuid"
@@ -17,4 +18,30 @@ type Item struct {
 	CreatedAt time.Time       `json:"created_at"`
 	UpdatedAt time.Time       `json:"updated_at"`
 	DeletedAt time.Time       `json:"deleted_at"`
+}
+
+// SetDefault fill the fields with default values.
+func (i *Item) SetDefault() {
+	i.Status = enum.ItemNotStarted
+}
+
+// Validate the fields of a Model.
+func (i *Item) Validate() error {
+	if i.ListID.String() == "" {
+		return fmt.Errorf(errEmpty, "id")
+	}
+	if i.Text == "" {
+		return fmt.Errorf(errEmpty, "text")
+	}
+	return nil
+}
+
+// Update the fields of a Model.
+func (i *Item) Update(newItem Item) {
+	if newItem.Text != "" {
+		i.Text = newItem.Text
+	}
+	if newItem.Status != 0 {
+		i.Status = newItem.Status
+	}
 }
