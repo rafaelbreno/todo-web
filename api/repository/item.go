@@ -45,5 +45,13 @@ func (r *ItemRepo) ReadAll(l *[]models.Item) error {
 
 // Update - update a list from the storage.
 func (r *ItemRepo) Update(l *models.Item) error {
-	return r.st.Update(l)
+	current := &models.Item{
+		ID: l.ID,
+	}
+	if err := r.Read(current); err != nil {
+		return err
+	}
+
+	current.Update(*l)
+	return r.st.Update(current)
 }
