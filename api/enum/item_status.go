@@ -1,11 +1,11 @@
 package enum
 
 // ItemStatus represents the status of an item.
-type ItemStatus int8
+type ItemStatus uint8
 
 const (
 	// ItemNotStarted is when the item still haven't been started yet.
-	ItemNotStarted ItemStatus = iota
+	ItemNotStarted ItemStatus = iota + 1
 	// ItemInProgress is when the item still in InProgress
 	ItemInProgress
 	// ItemCompleted is when the item was completed.

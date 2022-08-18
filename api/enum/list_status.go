@@ -1,11 +1,11 @@
 package enum
 
 // ListStatus represents the status of an list.
-type ListStatus int8
+type ListStatus uint8
 
 const (
 	// ListNotStarted is when the list still haven't been started yet.
-	ListNotStarted ListStatus = iota
+	ListNotStarted ListStatus = iota + 1
 	// ListInProgress is when the list still in InProgress
 	ListInProgress
 	// ListCompleted is when the list was completed.
