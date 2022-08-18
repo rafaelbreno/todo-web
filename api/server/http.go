@@ -26,6 +26,7 @@ func NewHTTP(st storage.Storage) *HTTP {
 		setDefaultHandlers()
 
 	handler.SetListHandlers(h.App, st)
+	handler.SetItemHandlers(h.App, st)
 
 	data, _ := json.MarshalIndent(h.App.Stack(), "", "  ")
 
