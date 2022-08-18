@@ -18,7 +18,7 @@ func TestListRepo(t *testing.T) {
 			st: nil,
 		}
 
-		require.Equal(expected, *actual)
+		require.Equal(expected, *(actual.(*ListRepo)))
 	})
 
 	t.Run("Create", func(t *testing.T) {
