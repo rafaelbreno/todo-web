@@ -54,4 +54,32 @@ func TestItem(t *testing.T) {
 			require.Nil(item.Validate())
 		})
 	})
+
+	t.Run("Update", func(t *testing.T) {
+		t.Run("Name", func(t *testing.T) {
+			require := require.New(t)
+
+			item := Item{}
+			newItem := Item{
+				Text: "foo",
+			}
+
+			item.Update(newItem)
+
+			require.Equal(item, newItem)
+		})
+		t.Run("Status", func(t *testing.T) {
+			require := require.New(t)
+
+			item := Item{}
+			newItem := Item{
+				Text:   "foo",
+				Status: enum.ItemCompleted,
+			}
+
+			item.Update(newItem)
+
+			require.Equal(item, newItem)
+		})
+	})
 }
