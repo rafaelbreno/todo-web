@@ -27,7 +27,7 @@ func (i *Item) SetDefault() {
 
 // Validate the fields of a Model.
 func (i *Item) Validate() error {
-	if i.ListID.String() == "" {
+	if i.ListID.ID() == 0 {
 		return fmt.Errorf(errEmpty, "id")
 	}
 	if i.Text == "" {
