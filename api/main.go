@@ -5,6 +5,7 @@ import (
 	"os/signal"
 
 	"github.com/rafaelbreno/todo-web/api/server"
+	"github.com/rafaelbreno/todo-web/api/storage"
 	"go.uber.org/zap"
 )
 
@@ -19,7 +20,9 @@ func main() {
 
 	defer undo()
 
-	srv := server.NewHTTP()
+	st := storage.NewLocalMap()
+
+	srv := server.NewHTTP(st)
 
 	go srv.App.Listen(":5001")
 
