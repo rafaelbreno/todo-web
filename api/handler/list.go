@@ -22,12 +22,12 @@ func SetListHandlers(app *fiber.App, st storage.Storage) {
 		route: app.Group("/list"),
 	}
 
-	l.route.Post(l.Create()).
-		Delete(l.Delete()).
-		Get(l.Read()).
-		Get(l.ReadAll()).
-		Put(l.Update()).
-		Patch(l.Update())
+	l.route.Post(l.Create())
+	l.route.Delete(l.Delete())
+	l.route.Get(l.ReadAll())
+	l.route.Get(l.Read())
+	l.route.Put(l.Update())
+	l.route.Patch(l.Update())
 }
 
 // Create - Handler to create a List.
