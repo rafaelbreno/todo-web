@@ -1,9 +1,6 @@
 package server
 
 import (
-	"encoding/json"
-	"fmt"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/rafaelbreno/todo-web/api/handler"
 	"github.com/rafaelbreno/todo-web/api/storage"
@@ -27,10 +24,6 @@ func NewHTTP(st storage.Storage) *HTTP {
 
 	handler.SetListHandlers(h.App, st)
 	handler.SetItemHandlers(h.App, st)
-
-	data, _ := json.MarshalIndent(h.App.Stack(), "", "  ")
-
-	fmt.Println(string(data))
 
 	return h
 }
