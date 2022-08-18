@@ -58,6 +58,9 @@ func (l *LocalMap) Delete(v any) error {
 	}
 }
 
+// HealthCheck just mocks a health check.
+func (l *LocalMap) HealthCheck() error { return nil }
+
 // Update updates an existent model instance in the local DB.
 func (l *LocalMap) Read(v any) error {
 	switch m := v.(type) {
