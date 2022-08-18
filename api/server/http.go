@@ -19,13 +19,9 @@ func NewHTTP(st storage.Storage) *HTTP {
 		}),
 	}
 
-	h.
-		setDefaultHandlers()
-
+	h.App.Get(handler.HealthCheck(st))
 	handler.SetListHandlers(h.App, st)
 	handler.SetItemHandlers(h.App, st)
 
 	return h
 }
-
-func (h *HTTP) setDefaultHandlers() { h.App.Get(handler.HealthCheck()) }
