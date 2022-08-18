@@ -33,10 +33,10 @@ func SetListHandlers(app *fiber.App, st storage.Storage) {
 // Create - Handler to create a List.
 func (l *ListHandler) Create() (string, func(*fiber.Ctx) error) {
 	return "", func(c *fiber.Ctx) error {
-		m := models.List{}
-		if err := c.BodyParser(&m); err != nil {
+		m := new(models.List)
+		if err := c.BodyParser(m); err != nil {
 			return c.
-				Status(fiber.StatusInternalServerError).
+				Status(fiber.StatusUnprocessableEntity).
 				JSON(fiber.Map{
 					"error": err.Error(),
 				})
@@ -45,7 +45,7 @@ func (l *ListHandler) Create() (string, func(*fiber.Ctx) error) {
 		// TODO:
 		// 	- Validate `m`
 
-		if err := l.repo.Create(&m); err != nil {
+		if err := l.repo.Create(m); err != nil {
 			return c.
 				Status(fiber.StatusBadRequest).
 				JSON(fiber.Map{
@@ -55,9 +55,7 @@ func (l *ListHandler) Create() (string, func(*fiber.Ctx) error) {
 
 		return c.
 			Status(fiber.StatusOK).
-			JSON(fiber.Map{
-				"list": m,
-			})
+			JSON(m)
 	}
 }
 
@@ -87,9 +85,7 @@ func (l *ListHandler) Delete() (string, func(*fiber.Ctx) error) {
 
 		return c.
 			Status(fiber.StatusOK).
-			JSON(fiber.Map{
-				"list": m,
-			})
+			JSON(m)
 	}
 }
 
@@ -119,9 +115,7 @@ func (l *ListHandler) Read() (string, func(*fiber.Ctx) error) {
 
 		return c.
 			Status(fiber.StatusOK).
-			JSON(fiber.Map{
-				"list": m,
-			})
+			JSON(m)
 	}
 }
 
@@ -140,9 +134,7 @@ func (l *ListHandler) ReadAll() (string, func(*fiber.Ctx) error) {
 
 		return c.
 			Status(fiber.StatusOK).
-			JSON(fiber.Map{
-				"lists": m,
-			})
+			JSON(m)
 	}
 }
 
@@ -180,8 +172,6 @@ func (l *ListHandler) Update() (string, func(*fiber.Ctx) error) {
 
 		return c.
 			Status(fiber.StatusOK).
-			JSON(fiber.Map{
-				"list": m,
-			})
+			JSON(m)
 	}
 }
