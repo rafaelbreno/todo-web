@@ -82,8 +82,17 @@ func (l *LocalMap) Read(v any) error {
 func (l *LocalMap) ReadAll(v any) error {
 	switch m := v.(type) {
 	case *[]models.Item:
+		if len(*m) == 0 {
+			for _, v := range l.items {
+				*m = append(*m, v)
+			}
+			return nil
+		}
+		listID := (*m)[0].ListID
 		for _, v := range l.items {
-			*m = append(*m, v)
+			if v.ListID == listID {
+				*m = append(*m, v)
+			}
 		}
 
 		return nil
