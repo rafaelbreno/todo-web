@@ -35,8 +35,8 @@ func SetItemHandlers(app *fiber.App, st storage.Storage) {
 // Create - Handler to create a Item.
 func (l *ItemHandler) Create() (string, func(*fiber.Ctx) error) {
 	return "", func(c *fiber.Ctx) error {
-		m := models.Item{}
-		if err := c.BodyParser(&m); err != nil {
+		m := new(models.Item)
+		if err := c.BodyParser(m); err != nil {
 			return c.
 				Status(fiber.StatusInternalServerError).
 				JSON(fiber.Map{
@@ -44,7 +44,7 @@ func (l *ItemHandler) Create() (string, func(*fiber.Ctx) error) {
 				})
 		}
 
-		if err := l.repo.Create(&m); err != nil {
+		if err := l.repo.Create(m); err != nil {
 			return c.
 				Status(fiber.StatusBadRequest).
 				JSON(fiber.Map{
@@ -54,9 +54,7 @@ func (l *ItemHandler) Create() (string, func(*fiber.Ctx) error) {
 
 		return c.
 			Status(fiber.StatusOK).
-			JSON(fiber.Map{
-				"item": m,
-			})
+			JSON(m)
 	}
 }
 
@@ -86,9 +84,7 @@ func (l *ItemHandler) Delete() (string, func(*fiber.Ctx) error) {
 
 		return c.
 			Status(fiber.StatusOK).
-			JSON(fiber.Map{
-				"item": m,
-			})
+			JSON(m)
 	}
 }
 
@@ -118,9 +114,7 @@ func (l *ItemHandler) Read() (string, func(*fiber.Ctx) error) {
 
 		return c.
 			Status(fiber.StatusOK).
-			JSON(fiber.Map{
-				"item": m,
-			})
+			JSON(m)
 	}
 }
 
@@ -131,26 +125,28 @@ func (l *ItemHandler) ReadAll() (string, func(*fiber.Ctx) error) {
 
 		b := map[string]string{}
 
-		if err := c.BodyParser(b); err != nil {
-			return c.
-				Status(fiber.StatusBadRequest).
-				JSON(fiber.Map{
-					"error": err.Error(),
-				})
-		}
-
-		if listID, ok := b["list_id"]; ok {
-			id, err := uuid.Parse(listID)
-			if err != nil {
+		if len(c.Body()) > 0 {
+			if err := c.BodyParser(b); err != nil {
 				return c.
-					Status(fiber.StatusInternalServerError).
+					Status(fiber.StatusBadRequest).
 					JSON(fiber.Map{
 						"error": err.Error(),
 					})
 			}
-			m = append(m, models.Item{
-				ListID: id,
-			})
+
+			if listID, ok := b["list_id"]; ok {
+				id, err := uuid.Parse(listID)
+				if err != nil {
+					return c.
+						Status(fiber.StatusInternalServerError).
+						JSON(fiber.Map{
+							"error": err.Error(),
+						})
+				}
+				m = append(m, models.Item{
+					ListID: id,
+				})
+			}
 		}
 
 		if err := l.repo.ReadAll(&m); err != nil {
@@ -163,9 +159,7 @@ func (l *ItemHandler) ReadAll() (string, func(*fiber.Ctx) error) {
 
 		return c.
 			Status(fiber.StatusOK).
-			JSON(fiber.Map{
-				"items": m,
-			})
+			JSON(m)
 	}
 }
 
@@ -203,8 +197,6 @@ func (l *ItemHandler) Update() (string, func(*fiber.Ctx) error) {
 
 		return c.
 			Status(fiber.StatusOK).
-			JSON(fiber.Map{
-				"item": m,
-			})
+			JSON(m)
 	}
 }
