@@ -2,6 +2,7 @@ package server
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/rafaelbreno/todo-web/api/handler"
 	"github.com/rafaelbreno/todo-web/api/storage"
 )
@@ -18,6 +19,8 @@ func NewHTTP(st storage.Storage) *HTTP {
 			StrictRouting: true,
 		}),
 	}
+
+	h.App.Use(cors.New())
 
 	h.App.Get(handler.HealthCheck(st))
 	handler.SetListHandlers(h.App, st)
